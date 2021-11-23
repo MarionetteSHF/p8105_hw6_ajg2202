@@ -43,8 +43,45 @@ birthweight_df
 purrr::map(birthweight_df, ~ sum(is.na(.)))
 
 ```
+This dataset contains `r nrow(birthweight_df)` rows and `r ncol(birthweight_df)` columns, there is no missing data.
+
+For the regression model, I chose several hypothesized variables that I believe may affect birthright along with variables that have be determined from previous research and literature.
+
+Wikipedia indicate that young ages, multiple pregnancies (parity), and previous LBW infants are several risk factors in the mother that contribute to low birth weight. Mother's age, parity and previous number of low birthweight infants are chosen for the model.
+
+Gestational weeks and presence of malformations appear to be an logical indicator of birthweight and was included in the model as such. 
+
+I was also interested in whether several socialdemographic factors would affect birthweight, so I included factors such as mom's race and financial income.
+
+#Regression model and residual plot
+```{r}
+model_fit_1 = lm(bwt ~ gaweeks + momage + mrace + malform + parity + fincome + pnumlbw, data = birthweight_df)
+
+birthweight_df %>% 
+  modelr::add_residuals(model_fit_1) %>%
+  modelr::add_predictions(model_fit_1) %>% 
+  ggplot(aes(x = pred, y = resid)) + 
+  geom_point(alpha = 0.3) +
+  geom_smooth(se = F, color = "red", method = "lm")
+  labs(
+    title = "Predicted vs. Residuals",
+    x = "Predicted",
+    y = "Residuals"
+    ) +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+
 
 
 ```{r}
+
+```
+
+
+
+
+```{r}
+
 
 ```
