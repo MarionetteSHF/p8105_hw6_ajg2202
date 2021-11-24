@@ -162,6 +162,18 @@ boot_results =
 
 
 ```
+### R-Squared
+
+```{r r_squared}
+boot_results %>%
+  ggplot(aes(x = adj.r.squared)) +
+  geom_density() +
+  labs(
+        title = "Distribution of R Squared",
+        x = "R Squared"
+    ) +
+  theme(plot.title = element_text(hjust = 0.5))
+```
 
 ```{r}
 
